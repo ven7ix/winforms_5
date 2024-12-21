@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.TimerGameLoop = new System.Windows.Forms.Timer(this.components);
             this.Screen = new gta_1.DoubleBufferedPanel();
             this.SuspendLayout();
+            // 
+            // TimerGameLoop
+            // 
+            this.TimerGameLoop.Interval = 20;
+            this.TimerGameLoop.Tick += new System.EventHandler(this.TimerGameLoop_Tick);
             // 
             // Screen
             // 
@@ -58,6 +65,7 @@
         #endregion
 
         private gta_1.DoubleBufferedPanel Screen;
+        private System.Windows.Forms.Timer TimerGameLoop;
     }
 }
 

@@ -93,5 +93,12 @@ namespace gta_1
                 screen.FillRectangle(Brushes.Red, tile.Bounds);
             }
         }
+
+        public static Tile RandomTile()
+        {
+            Random mapPosition = new Random();
+            Tile randomTile = WorldMap[mapPosition.Next(0, WorldMapSize.X), mapPosition.Next(0, WorldMapSize.Y)];
+            return randomTile;
+        }
     }
 }

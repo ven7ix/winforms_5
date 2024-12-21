@@ -18,7 +18,7 @@ namespace gta_1
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
-
+        
         public NPC(bool interactable, Point position, Size size, int maximumHP, int speedModifier)
         {
             Interactable = interactable;
@@ -29,6 +29,8 @@ namespace gta_1
 
             Position = position;
             Bounds = new Rectangle(position, size);
+
+            Destination = Map.RandomTile().Position;
         }
 
         public void Move(Point moveDirection)
@@ -40,10 +42,17 @@ namespace gta_1
             };
 
             if (MoveCollisionCheckObject(newPosition))
+            {
+                Destination = Map.RandomTile().Position;
                 return;
+            }
+                
 
             if (MoveCollisionCheckEntity(newPosition))
+            {
+                Destination = Map.RandomTile().Position;
                 return;
+            }
 
             Position = newPosition;
             Bounds = new Rectangle(newPosition, Bounds.Size);
@@ -104,6 +113,17 @@ namespace gta_1
             return false;
         }
 
+        Point Destination;
+        public void Walk()
+        {
+            Point moveDirection = new Point(Math.Sign(Destination.X - Position.X), Math.Sign(Destination.Y - Position.Y));
+
+            if (Position == Destination)
+                Destination = Map.RandomTile().Position;
+
+            Move(moveDirection);
+        }
+
         public IEntity Interact(IEntity entity)
         {
             if (!Interactable)
@@ -114,7 +134,7 @@ namespace gta_1
                 Location = new Point()
                 {
                     X = Position.X - (entity.Position.X - Tools.ScreenCentre.X),
-                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.X)
+                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.Y)
                 },
                 Size = Bounds.Size
             };

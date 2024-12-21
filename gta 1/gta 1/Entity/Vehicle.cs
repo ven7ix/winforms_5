@@ -141,7 +141,7 @@ namespace gta_1
                 Location = new Point()
                 {
                     X = Position.X - (entity.Position.X - Tools.ScreenCentre.X),
-                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.X)
+                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.Y)
                 },
                 Size = Bounds.Size
             };
@@ -178,6 +178,7 @@ namespace gta_1
             }
 
             PlayerInside = entity;
+            Game.player.CurrentHP = 0;
             return this;
         }
 

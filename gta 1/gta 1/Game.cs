@@ -25,18 +25,31 @@ namespace gta_1
             Map.LoadMapFromFile();
 
             player = new Player(Map.WorldMap[1, 1].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4);
-            entities.Add(new Vehicle(true, Map.WorldMap[4, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2));
+            entities.Add(player);
+            entities.Add(new Vehicle(true, Map.WorldMap[3, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2));
             entities.Add(new Vehicle(true, Map.WorldMap[10, 6].Position, new Size(3 * Tools.TileSize, 3 * Tools.TileSize), 100, 2));
-            entities.Add(new NPC(true, Map.WorldMap[15, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
-            entities.Add(new NPC(true, Map.WorldMap[30, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
-            entities.Add(new NPC(true, Map.WorldMap[15, 17].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
-            entities.Add(new NPC(true, Map.WorldMap[24, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
+            entities.Add(new NPC(true, Map.WorldMap[3, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
+            entities.Add(new NPC(true, Map.WorldMap[30, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
+            entities.Add(new NPC(true, Map.WorldMap[15, 17].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
+            entities.Add(new NPC(true, Map.WorldMap[24, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
+
+            TimerGameLoop.Start();
+        }
+
+        private void TimerGameLoop_Tick(object sender, EventArgs e)
+        {
+            foreach (IEntity entity in entities)
+            {
+                if (entity is NPC)
+                    (entity as NPC).Walk();
+            }
+
+            Screen.Invalidate();
         }
 
         private void Game_MouseMove(object sender, MouseEventArgs e)
         {
             player.CalculateLookingDirection(e.Location);
-            Screen.Invalidate();
         }
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
@@ -63,8 +76,6 @@ namespace gta_1
                 foreach (IEntity entity in entities)
                     player = entity.Interact(player);
             }
-
-            Screen.Invalidate();
         }
 
         private void Screen_MouseClick(object sender, MouseEventArgs e)
