@@ -13,8 +13,8 @@ namespace gta_1
 {
     public partial class Game : Form
     {
-        public static Entity player;
-        readonly List<Entity> entities = new List<Entity>();
+        public static IEntity player;
+        public static List<IEntity> entities = new List<IEntity>();
 
         public Game()
         {
@@ -24,17 +24,13 @@ namespace gta_1
 
             Map.LoadMapFromFile();
 
-            Point spawn = new Point()
-            {
-                X = Tools.ScreenCentre.X + 2 * Tools.TileSize,
-                Y = Tools.ScreenCentre.Y - 2 * Tools.TileSize
-            };
-            player = new Entity(0, false, spawn, new Size(Tools.TileSize, Tools.TileSize), 100, 4);
-            Entity car = new Entity(1, true, Map.WorldMap[4, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2);
-            Entity car2 = new Entity(1, true, Map.WorldMap[10, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2);
-            //entities.Add(player);
-            entities.Add(car);
-            entities.Add(car2);
+            player = new Player(Map.WorldMap[1, 1].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4);
+            entities.Add(new Vehicle(true, Map.WorldMap[4, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2));
+            entities.Add(new Vehicle(true, Map.WorldMap[10, 6].Position, new Size(3 * Tools.TileSize, 3 * Tools.TileSize), 100, 2));
+            entities.Add(new NPC(true, Map.WorldMap[15, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
+            entities.Add(new NPC(true, Map.WorldMap[30, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
+            entities.Add(new NPC(true, Map.WorldMap[15, 17].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
+            entities.Add(new NPC(true, Map.WorldMap[24, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4));
         }
 
         private void Game_MouseMove(object sender, MouseEventArgs e)
@@ -47,24 +43,24 @@ namespace gta_1
         {
             if (e.KeyCode == Keys.W)
             {
-                player.Move(new Point(0, 1), entities);
+                player.Move(new Point(0, 1));
             }
             if (e.KeyCode == Keys.A)
             {
-                player.Move(new Point(-1, 0), entities);
+                player.Move(new Point(-1, 0));
             }
             if (e.KeyCode == Keys.S)
             {
-                player.Move(new Point(0, -1), entities);
+                player.Move(new Point(0, -1));
             }
             if (e.KeyCode == Keys.D)
             {
-                player.Move(new Point(1, 0), entities);
+                player.Move(new Point(1, 0));
             }
 
             if (e.KeyCode == Keys.E)
             {
-                foreach (Entity entity in entities)
+                foreach (IEntity entity in entities)
                     player = entity.Interact(player);
             }
 
@@ -73,6 +69,9 @@ namespace gta_1
 
         private void Screen_MouseClick(object sender, MouseEventArgs e)
         {
+            foreach (IEntity entity in entities)
+                (player as Player).Hit(entity);
+
             Screen.Invalidate();
         }
 
@@ -82,9 +81,18 @@ namespace gta_1
 
             Map.RenderWorldMap(screen);
 
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i].CheckIfDead())
+                {
+                    entities.Remove(entities[i--]);
+                    continue;
+                }
+
+                entities[i].RenderEntity(screen);
+            }
+
             player.RenderEntity(screen);
-            foreach (Entity entity in entities)
-                entity.RenderEntity(screen);
         }
     }
 }
