@@ -1,0 +1,10 @@
+C:\Users\Andrew\source\repos\gta 1\gta 1\bin\Debug\gta 1.exe.config
+C:\Users\Andrew\source\repos\gta 1\gta 1\bin\Debug\gta 1.exe
+C:\Users\Andrew\source\repos\gta 1\gta 1\bin\Debug\gta 1.pdb
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta 1.csproj.AssemblyReference.cache
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta_1.Game.resources
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta_1.Properties.Resources.resources
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta 1.csproj.GenerateResource.cache
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta 1.csproj.CoreCompileInputs.cache
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta 1.exe
+C:\Users\Andrew\source\repos\gta 1\gta 1\obj\Debug\gta 1.pdb
