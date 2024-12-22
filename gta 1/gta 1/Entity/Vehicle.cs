@@ -14,19 +14,18 @@ namespace gta_1
         public int CurrentHP { get; set; }
         public int Speed { get; set; }
         public bool Interactable { get; set; }
-        public IEntity PlayerInside { get; set; }
+        public Player PlayerInside { get; set; }
 
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
 
-        public Vehicle(bool interactable, Point position, Size size, int maximumHP, int speedModifier)
+        public Vehicle(Point position, Size size, int maximumHP, int speedModifier, bool interactable)
         {
-            Interactable = interactable;
-
             MaximumHP = maximumHP;
             CurrentHP = maximumHP;
             Speed = Tools.TileSize / speedModifier;
+            Interactable = interactable;
 
             Position = position;
             Bounds = new Rectangle(position, size);
@@ -41,7 +40,18 @@ namespace gta_1
             };
 
             if (MoveCollisionCheckObject(newPosition))
-                return;
+            {
+                if (Math.Abs(moveDirection.X) + Math.Abs(moveDirection.Y) < 2)
+                    return;
+
+                newPosition = new Point(Position.X + moveDirection.X * Speed, Position.Y);
+                if (MoveCollisionCheckObject(newPosition))
+                {
+                    newPosition = new Point(Position.X, Position.Y - moveDirection.Y * Speed);
+                    if (MoveCollisionCheckObject(newPosition))
+                        return;
+                }
+            }
 
             if (MoveCollisionCheckEntity(newPosition))
                 return;
@@ -62,7 +72,7 @@ namespace gta_1
                 {
                     Map.Tile tile = Map.WorldMap[x, y];
 
-                    if (tile.SpriteID != 0)
+                    if (!tile.Passable)
                     {
                         //проверка входит ли стена в хитбокс игрока (на каждый из 4х углов)
                         if (newBounds.Contains(tile.Position))
@@ -136,16 +146,7 @@ namespace gta_1
             if (!Interactable)
                 return entity;
 
-            Rectangle boundsRelativeToEntity = new Rectangle()
-            {
-                Location = new Point()
-                {
-                    X = Position.X - (entity.Position.X - Tools.ScreenCentre.X),
-                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.Y)
-                },
-                Size = Bounds.Size
-            };
-            if (!boundsRelativeToEntity.Contains(entity.LookingDirection))
+            if (!Tools.GetBoundsRelativeToEntity(this, entity).Contains(entity.LookingDirection))
                 return entity;
 
             Rectangle interactableHitbox = new Rectangle()
@@ -160,7 +161,7 @@ namespace gta_1
             if (!interactableHitbox.Contains(Game.player.Position))
                 return entity;
 
-            if (entity is Vehicle)
+            if (entity == this)
             {
                 PlayerInside.Position = new Point()
                 {
@@ -177,9 +178,14 @@ namespace gta_1
                 return PlayerInside;
             }
 
-            PlayerInside = entity;
-            Game.player.CurrentHP = 0;
-            return this;
+            if (entity is Player)
+            {
+                PlayerInside = new Player(entity as Player);
+                entity.CurrentHP = 0;
+                return this;
+            }
+
+            return entity;
         }
 
         public void CalculateLookingDirection(Point mousePosition)
@@ -190,26 +196,15 @@ namespace gta_1
         public bool CheckIfDead()
         {
             if (CurrentHP == 0)
-            {
                 return true;
-            }
+
             return false;
         }
 
         public void RenderEntity(Graphics screen)
         {
-            Point positionRelativeToPlayer = new Point()
-            {
-                X = Position.X - (Game.player.Position.X - Tools.ScreenSize.X / 2),
-                Y = Position.Y - (Game.player.Position.Y - Tools.ScreenSize.Y / 2)
-            };
-
-            //Entity
-            screen.FillRectangle(Brushes.Green, new Rectangle(positionRelativeToPlayer, Bounds.Size));
-
-            //LookigDirection
-            if (Tools.ScreenCentre == positionRelativeToPlayer)
-                screen.DrawLine(Pens.Blue, new Point(Tools.ScreenCentre.X + Bounds.Width / 2, Tools.ScreenCentre.Y + Bounds.Height / 2), LookingDirection);
+            //Vehicle
+            screen.FillRectangle(Brushes.Green, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
         }
     }
 }

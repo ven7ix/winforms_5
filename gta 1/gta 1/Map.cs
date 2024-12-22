@@ -15,20 +15,25 @@ namespace gta_1
     internal class Map
     {
         public static Tile[,] WorldMap;
+        public static bool[,] Pavements;
+        public static bool[,] Roads;
         public static Point WorldMapSize;
 
         public struct Tile
         {
             public Point Position;
+            public Point PositionInWorldMap;
             public int SpriteID;
+            public bool Passable;
             public Rectangle Bounds;
 
-            public Tile(Point position, int spriteID)
+            public Tile(Point position, Point positionInWorldMap, int spriteID, bool passable)
             {
-                this.Position = position;
-                this.SpriteID = spriteID;
-                Size size = new Size(Tools.TileSize, Tools.TileSize);
-                Bounds = new Rectangle(position, size);
+                Position = position;
+                PositionInWorldMap = positionInWorldMap;
+                SpriteID = spriteID;
+                Passable = passable;
+                Bounds = new Rectangle(position, new Size(Tools.TileSize, Tools.TileSize));
             }
         }
 
@@ -39,6 +44,8 @@ namespace gta_1
 
             WorldMapSize = new Point(mapLines[0].Length, mapLines.Length);
             WorldMap = new Tile[WorldMapSize.X, WorldMapSize.Y];
+            Pavements = new bool[WorldMapSize.X, WorldMapSize.Y];
+            Roads = new bool[WorldMapSize.X, WorldMapSize.Y];
 
             for (int y = 0; y < WorldMapSize.Y; y++)
             {
@@ -46,17 +53,58 @@ namespace gta_1
 
                 for (int x = 0; x < WorldMapSize.X; x++)
                 {
-                    Tile tile = new Tile(Tools.ConvertPosition_GAME_SCREEN(new Point(x, yOpposite)), -1);
+                    Tile tile = new Tile(Tools.ConvertPosition_GAME_SCREEN(new Point(x, yOpposite)), new Point(x, y), -1, true);
+                    Pavements[x, yOpposite] = false;
+                    Roads[x, yOpposite] = false;
 
-                    if (mapLines[y][x] == 'X')
-                    {
-                        tile.SpriteID = 1;
-                    }
-                    else if (mapLines[y][x] == '_')
+                    if (mapLines[y][x] == '_')
                     {
                         tile.SpriteID = 0;
                     }
-                    
+                    else if (mapLines[y][x] == 's')
+                    {
+                        tile.SpriteID = 0;
+
+                        Game.entities.Add(new Weapon(tile.Position, new Size(Tools.TileSize, Tools.TileSize), 8, 100, true));
+                    }
+                    else if (mapLines[y][x] == 'r')
+                    {
+                        tile.SpriteID = 0;
+
+                        Game.entities.Add(new Weapon(tile.Position, new Size(Tools.TileSize, Tools.TileSize), 6, 50, true));
+                    }
+                    else if (mapLines[y][x] == 'X')
+                    {
+                        tile.SpriteID = 1;
+                        tile.Passable = false;
+                    }
+                    else if (mapLines[y][x] == 'P')
+                    {
+                        tile.SpriteID = 2;
+
+                        Pavements[x, yOpposite] = true;
+                    }
+                    else if (mapLines[y][x] == '+')
+                    {
+                        tile.SpriteID = 2;
+
+                        Pavements[x, yOpposite] = true;
+                        Game.entities.Add(new NPC(tile.Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16, true));
+                    }
+                    else if (mapLines[y][x] == 'R')
+                    {
+                        tile.SpriteID = 3;
+
+                        Roads[x, yOpposite] = true;
+                    }
+                    else if (mapLines[y][x] == '*')
+                    {
+                        tile.SpriteID = 3;
+
+                        Roads[x, yOpposite] = true;
+                        Game.entities.Add(new Vehicle(tile.Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 4, true));
+                    }
+
                     WorldMap[x, yOpposite] = tile;
                 }
             }
@@ -68,16 +116,14 @@ namespace gta_1
             {
                 for (int y = 0; y < WorldMapSize.Y; y++)
                 {
-                    Point newPosition = new Point()
-                    {
-                        X = WorldMap[x, y].Position.X - (Game.player.Position.X - Tools.ScreenSize.X / 2),
-                        Y = WorldMap[x, y].Position.Y - (Game.player.Position.Y - Tools.ScreenSize.Y / 2)
-                    };
-
                     Tile tile = new Tile()
                     {
-                        Position = newPosition,
-                        Bounds = new Rectangle(newPosition, new Size(Tools.TileSize, Tools.TileSize)),
+                        Position = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
+                        Bounds = new Rectangle()
+                        {
+                            Location = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position), 
+                            Size = new Size(Tools.TileSize, Tools.TileSize)
+                        },
                         SpriteID = WorldMap[x, y].SpriteID
                     };
 
@@ -92,13 +138,29 @@ namespace gta_1
             {
                 screen.FillRectangle(Brushes.Red, tile.Bounds);
             }
+            if (tile.SpriteID == 2)
+            {
+                screen.FillRectangle(Brushes.LightGray, tile.Bounds);
+            }
+            if (tile.SpriteID == 3)
+            {
+                screen.FillRectangle(Brushes.Gray, tile.Bounds);
+            }
+            if (tile.SpriteID == 4)
+            {
+                screen.FillRectangle(Brushes.DarkBlue, tile.Bounds);
+            }
+            if (tile.SpriteID == 5)
+            {
+                screen.FillRectangle(Brushes.Brown, tile.Bounds);
+            }
         }
 
         public static Tile RandomTile()
         {
-            Random mapPosition = new Random();
-            Tile randomTile = WorldMap[mapPosition.Next(0, WorldMapSize.X), mapPosition.Next(0, WorldMapSize.Y)];
-            return randomTile;
+            Random random = new Random();
+
+            return WorldMap[random.Next(0, WorldMapSize.X), random.Next(0, WorldMapSize.Y)];
         }
     }
 }

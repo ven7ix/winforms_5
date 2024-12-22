@@ -25,8 +25,8 @@ namespace gta_1
         {
             Point screenPosition = new Point
             {
-                X = gamePosition.X * TileSize + ScreenCentre.X,
-                Y = -gamePosition.Y * TileSize + ScreenCentre.Y
+                X = (int)gamePosition.X * TileSize + ScreenCentre.X,
+                Y = (int)-gamePosition.Y * TileSize + ScreenCentre.Y
             };
 
             return screenPosition;
@@ -47,6 +47,32 @@ namespace gta_1
                 gamePosition.Y = -Math.Abs(ScreenCentre.Y - screenPosition.Y) / TileSize;
 
             return gamePosition;
+        }
+
+        public static Point GetPositionRelativeToPlayer(Point position)
+        {
+            Point positionRelativeToPlayer = new Point()
+            {
+                X = position.X - (Game.player.Position.X - ScreenCentre.X),
+                Y = position.Y - (Game.player.Position.Y - ScreenCentre.Y)
+            };
+
+            return positionRelativeToPlayer;
+        }
+
+        public static Rectangle GetBoundsRelativeToEntity(IEntity relativeEntity, IEntity entity)
+        {
+            Rectangle boundsRelativeToEntity = new Rectangle()
+            {
+                Location = new Point()
+                {
+                    X = relativeEntity.Position.X - (entity.Position.X - ScreenCentre.X),
+                    Y = relativeEntity.Position.Y - (entity.Position.Y - ScreenCentre.Y)
+                },
+                Size = relativeEntity.Bounds.Size
+            };
+
+            return boundsRelativeToEntity;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,19 +19,17 @@ namespace gta_1
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
-        
-        public NPC(bool interactable, Point position, Size size, int maximumHP, int speedModifier)
-        {
-            Interactable = interactable;
+        private Point Destination { get; set; }
 
+        public NPC(Point position, Size size, int maximumHP, int speedModifier, bool interactable)
+        {
             MaximumHP = maximumHP;
             CurrentHP = maximumHP;
             Speed = Tools.TileSize / speedModifier;
+            Interactable = interactable;
 
             Position = position;
             Bounds = new Rectangle(position, size);
-
-            Destination = Map.RandomTile().Position;
         }
 
         public void Move(Point moveDirection)
@@ -43,10 +42,23 @@ namespace gta_1
 
             if (MoveCollisionCheckObject(newPosition))
             {
-                Destination = Map.RandomTile().Position;
-                return;
+                if (Math.Abs(moveDirection.X) + Math.Abs(moveDirection.Y) < 2)
+                {
+                    Destination = Map.RandomTile().Position;
+                    return;
+                }
+
+                newPosition = new Point(Position.X + moveDirection.X * Speed, Position.Y);
+                if (MoveCollisionCheckObject(newPosition))
+                {
+                    newPosition = new Point(Position.X, Position.Y - moveDirection.Y * Speed);
+                    if (MoveCollisionCheckObject(newPosition))
+                    {
+                        Destination = Map.RandomTile().Position;
+                        return;
+                    }
+                }
             }
-                
 
             if (MoveCollisionCheckEntity(newPosition))
             {
@@ -68,7 +80,7 @@ namespace gta_1
                 {
                     Map.Tile tile = Map.WorldMap[x, y];
 
-                    if (tile.SpriteID != 0)
+                    if (!Map.Pavements[x, y])
                     {
                         //проверка входит ли стена в хитбокс игрока (на каждый из 4х углов)
                         if (newBounds.Contains(tile.Position))
@@ -96,7 +108,7 @@ namespace gta_1
                 if (entity == this)
                     continue;
 
-                //проверка входит ли хитбокс игрока в сущность (на каждый из 4х углов)
+                //проверка входит ли хитбокс сущности из цикла в эту сущность (на каждый из 4х углов)
                 if (entity.Bounds.Contains(newPosition))
                     return true;
 
@@ -113,13 +125,16 @@ namespace gta_1
             return false;
         }
 
-        Point Destination;
-        public void Walk()
+        public void Wonder()
         {
-            Point moveDirection = new Point(Math.Sign(Destination.X - Position.X), Math.Sign(Destination.Y - Position.Y));
-
             if (Position == Destination)
                 Destination = Map.RandomTile().Position;
+
+            Point moveDirection = new Point()
+            {
+                X = Math.Sign(Destination.X - Position.X),
+                Y = Math.Sign(Destination.Y - Position.Y)
+            };
 
             Move(moveDirection);
         }
@@ -129,16 +144,7 @@ namespace gta_1
             if (!Interactable)
                 return entity;
 
-            Rectangle boundsRelativeToEntity = new Rectangle()
-            {
-                Location = new Point()
-                {
-                    X = Position.X - (entity.Position.X - Tools.ScreenCentre.X),
-                    Y = Position.Y - (entity.Position.Y - Tools.ScreenCentre.Y)
-                },
-                Size = Bounds.Size
-            };
-            if (!boundsRelativeToEntity.Contains(entity.LookingDirection))
+            if (!Tools.GetBoundsRelativeToEntity(this, entity).Contains(entity.LookingDirection))
                 return entity;
 
             Rectangle interactableHitbox = new Rectangle()
@@ -153,7 +159,7 @@ namespace gta_1
             if (!interactableHitbox.Contains(Game.player.Position))
                 return entity;
 
-            MessageBox.Show("Hi");
+            MessageBox.Show($"Hi, my Position is {Position}");
 
             return entity;
         }
@@ -166,22 +172,15 @@ namespace gta_1
         public bool CheckIfDead()
         {
             if (CurrentHP == 0)
-            {
                 return true;
-            }
+
             return false;
         }
 
         public void RenderEntity(Graphics screen)
         {
-            Point positionRelativeToPlayer = new Point()
-            {
-                X = Position.X - (Game.player.Position.X - Tools.ScreenSize.X / 2),
-                Y = Position.Y - (Game.player.Position.Y - Tools.ScreenSize.Y / 2)
-            };
-
-            //Entity
-            screen.FillRectangle(Brushes.Blue, new Rectangle(positionRelativeToPlayer, Bounds.Size));
+            //NPC
+            screen.FillRectangle(Brushes.Blue, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
         }
     }
 }

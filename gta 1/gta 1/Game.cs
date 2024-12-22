@@ -15,7 +15,10 @@ namespace gta_1
     {
         public static IEntity player;
         public static List<IEntity> entities = new List<IEntity>();
+        private readonly HashSet<Keys> PressedMovementKeys = new HashSet<Keys>();
 
+        //Весь рендер происходит относительно игорка (игрок не двигается)
+        //А все расчеты происходят относительно карты (карта не двигается)
         public Game()
         {
             InitializeComponent();
@@ -24,25 +27,23 @@ namespace gta_1
 
             Map.LoadMapFromFile();
 
-            player = new Player(Map.WorldMap[1, 1].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 4);
+            player = new Player(Map.WorldMap[1, 1].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 8, new Player.Weapon(1, 10));
             entities.Add(player);
-            entities.Add(new Vehicle(true, Map.WorldMap[3, 6].Position, new Size(2 * Tools.TileSize, 2 * Tools.TileSize), 100, 2));
-            entities.Add(new Vehicle(true, Map.WorldMap[10, 6].Position, new Size(3 * Tools.TileSize, 3 * Tools.TileSize), 100, 2));
-            entities.Add(new NPC(true, Map.WorldMap[3, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
-            entities.Add(new NPC(true, Map.WorldMap[30, 14].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
-            entities.Add(new NPC(true, Map.WorldMap[15, 17].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
-            entities.Add(new NPC(true, Map.WorldMap[24, 3].Position, new Size(Tools.TileSize, Tools.TileSize), 100, 16));
-
             TimerGameLoop.Start();
         }
 
         private void TimerGameLoop_Tick(object sender, EventArgs e)
         {
+            CheckMovementKeys();
+
             foreach (IEntity entity in entities)
             {
                 if (entity is NPC)
-                    (entity as NPC).Walk();
+                    (entity as NPC).Wonder();
             }
+
+            if (player.CheckIfDead())
+                TimerGameLoop.Stop();
 
             Screen.Invalidate();
         }
@@ -54,36 +55,68 @@ namespace gta_1
 
         private void Game_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W)
-            {
-                player.Move(new Point(0, 1));
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                player.Move(new Point(-1, 0));
-            }
-            if (e.KeyCode == Keys.S)
-            {
-                player.Move(new Point(0, -1));
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                player.Move(new Point(1, 0));
-            }
-
             if (e.KeyCode == Keys.E)
             {
                 foreach (IEntity entity in entities)
                     player = entity.Interact(player);
+
+                if (!entities.Contains(player))
+                    entities.Add(player);
+            }
+            else if (!PressedMovementKeys.Contains(e.KeyCode))
+            {
+                PressedMovementKeys.Add(e.KeyCode);
+            }
+        }
+
+        private void Game_KeyUp(object sender, KeyEventArgs e)
+        {
+            PressedMovementKeys.Remove(e.KeyCode);
+        }
+
+        private void CheckMovementKeys()
+        {
+            if (PressedMovementKeys.Contains(Keys.W) && PressedMovementKeys.Contains(Keys.D))
+            {
+                player.Move(new Point(1, 1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.W) && PressedMovementKeys.Contains(Keys.A))
+            {
+                player.Move(new Point(-1, 1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.S) && PressedMovementKeys.Contains(Keys.D))
+            {
+                player.Move(new Point(1, -1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.S) && PressedMovementKeys.Contains(Keys.A))
+            {
+                player.Move(new Point(-1, -1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.W))
+            {
+                player.Move(new Point(0, 1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.A))
+            {
+                player.Move(new Point(-1, 0));
+            }
+            else if (PressedMovementKeys.Contains(Keys.S))
+            {
+                player.Move(new Point(0, -1));
+            }
+            else if (PressedMovementKeys.Contains(Keys.D))
+            {
+                player.Move(new Point(1, 0));
             }
         }
 
         private void Screen_MouseClick(object sender, MouseEventArgs e)
         {
             foreach (IEntity entity in entities)
-                (player as Player).Hit(entity);
-
-            Screen.Invalidate();
+            {
+                if (player is Player)
+                    (player as Player).Hit(entity);
+            }
         }
 
         private void Screen_Paint(object sender, PaintEventArgs e)
@@ -91,6 +124,8 @@ namespace gta_1
             Graphics screen = e.Graphics;
 
             Map.RenderWorldMap(screen);
+
+            player.RenderEntity(screen);
 
             for (int i = 0; i < entities.Count; i++)
             {
@@ -102,8 +137,6 @@ namespace gta_1
 
                 entities[i].RenderEntity(screen);
             }
-
-            player.RenderEntity(screen);
         }
     }
 }
