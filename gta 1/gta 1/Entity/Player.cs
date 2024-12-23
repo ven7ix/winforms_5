@@ -212,7 +212,7 @@ namespace gta_1
             Point lookingVector = new Point()
             {
                 X = Math.Sign((LookingDirection.X - Tools.ScreenCentre.X) / (Tools.ScreenCentre.X / 6)),
-                Y = -Math.Sign((LookingDirection.Y - Tools.ScreenCentre.Y) / (Tools.ScreenCentre.Y / 6))
+                Y = Math.Sign((LookingDirection.Y - Tools.ScreenCentre.Y) / (Tools.ScreenCentre.Y / 6))
             };
             Rectangle alwayerReachable = new Rectangle()
             {
@@ -265,49 +265,45 @@ namespace gta_1
                 Size = new Size(Bounds.Width + 2 * EquippedWeapon.Range * Tools.TileSize, Bounds.Height + 2 * EquippedWeapon.Range * Tools.TileSize)
             };
 
-            if (mousePosition.X > maxReachBoundsScreen.Right && mousePosition.X > Tools.ScreenCentre.X && 
-                mousePosition.Y > maxReachBoundsScreen.Bottom && mousePosition.Y > Tools.ScreenCentre.Y)
+            if (mousePosition.X > maxReachBoundsScreen.Right && mousePosition.Y > maxReachBoundsScreen.Bottom)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Right, maxReachBoundsScreen.Bottom);
                 UpdateReach();
                 return;
             }
-            if (mousePosition.X > maxReachBoundsScreen.Right && mousePosition.X > Tools.ScreenCentre.X &&
-                mousePosition.Y < maxReachBoundsScreen.Top && mousePosition.Y < Tools.ScreenCentre.Y)
+            if (mousePosition.X > maxReachBoundsScreen.Right && mousePosition.Y < maxReachBoundsScreen.Top)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Right, maxReachBoundsScreen.Top);
                 UpdateReach();
                 return;
             }
-            if (mousePosition.X < maxReachBoundsScreen.Left && mousePosition.X < Tools.ScreenCentre.X &&
-                mousePosition.Y > maxReachBoundsScreen.Bottom && mousePosition.Y > Tools.ScreenCentre.Y)
+            if (mousePosition.X < maxReachBoundsScreen.Left && mousePosition.Y > maxReachBoundsScreen.Bottom)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Left, maxReachBoundsScreen.Bottom);
                 UpdateReach();
                 return;
             }
-            if (mousePosition.X < maxReachBoundsScreen.Left && mousePosition.X < Tools.ScreenCentre.X &&
-                mousePosition.Y < maxReachBoundsScreen.Top && mousePosition.Y < Tools.ScreenCentre.Y)
+            if (mousePosition.X < maxReachBoundsScreen.Left && mousePosition.Y < maxReachBoundsScreen.Top)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Left, maxReachBoundsScreen.Top);
                 UpdateReach();
                 return;
             }
 
-            if (mousePosition.X > maxReachBoundsScreen.Right && mousePosition.X > Tools.ScreenCentre.X)
+            if (mousePosition.X > maxReachBoundsScreen.Right)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Right, mousePosition.Y);
             }
-            else if (mousePosition.X < maxReachBoundsScreen.Left && mousePosition.X < Tools.ScreenCentre.X)
+            else if (mousePosition.X < maxReachBoundsScreen.Left)
             {
                 LookingDirection = new Point(maxReachBoundsScreen.Left, mousePosition.Y);
             }
 
-            if (mousePosition.Y > maxReachBoundsScreen.Bottom && mousePosition.Y > Tools.ScreenCentre.Y)
+            if (mousePosition.Y > maxReachBoundsScreen.Bottom)
             {
                 LookingDirection = new Point(mousePosition.X, maxReachBoundsScreen.Bottom);
             }
-            else if (mousePosition.Y < maxReachBoundsScreen.Top && mousePosition.Y < Tools.ScreenCentre.Y)
+            else if (mousePosition.Y < maxReachBoundsScreen.Top)
             {
                 LookingDirection = new Point(mousePosition.X, maxReachBoundsScreen.Top);
             }
@@ -333,10 +329,10 @@ namespace gta_1
                     if (!PlayerRealReach[x, y])
                         continue;
 
-                    //screen.FillRectangle(Brushes.LightBlue, new Rectangle(Tools.GetPositionRelativeToPlayer(Map.WorldMap[x, y].Position), Bounds.Size));
+                    //screen.FillRectangle(Brushes.Blue, new Rectangle(Tools.GetPositionRelativeToPlayer(Map.WorldMap[x, y].Position), Bounds.Size));
                 }
             }
-            screen.DrawLine(Pens.Blue, new Point(Tools.ScreenCentre.X + Bounds.Width / 2, Tools.ScreenCentre.Y + Bounds.Height / 2), LookingDirection);
+            screen.DrawLine(Pens.Black, new Point(Tools.ScreenCentre.X + Bounds.Width / 2, Tools.ScreenCentre.Y + Bounds.Height / 2), LookingDirection);
 
             //Player
             screen.FillRectangle(Brushes.Black, new Rectangle(Tools.ScreenCentre, Bounds.Size));

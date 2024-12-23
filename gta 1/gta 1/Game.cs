@@ -123,9 +123,7 @@ namespace gta_1
         {
             Graphics screen = e.Graphics;
 
-            Map.RenderWorldMap(screen);
-
-            player.RenderEntity(screen);
+            Map.RenderTiles(screen);
 
             for (int i = 0; i < entities.Count; i++)
             {
@@ -137,6 +135,12 @@ namespace gta_1
 
                 entities[i].RenderEntity(screen);
             }
+
+            Map.RenderWalls(screen);
+
+            player.RenderEntity(screen);
+
+            Map.RenderRoofs(screen);
         }
     }
 }

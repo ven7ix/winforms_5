@@ -181,18 +181,21 @@ namespace gta_1
             return tile;
         }
 
-        public static void RenderWorldMap(Graphics screen)
+        public static void RenderTiles(Graphics screen)
         {
             for (int x = 0; x < WorldMapSize.X; x++)
             {
                 for (int y = 0; y < WorldMapSize.Y; y++)
                 {
+                    if (WorldMap[x, y].SptireType == "roof")
+                        continue;
+
                     Tile tile = new Tile(WorldMap[x, y])
                     {
                         Position = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
                         Bounds = new Rectangle()
                         {
-                            Location = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position), 
+                            Location = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
                             Size = new Size(Tools.TileSize, Tools.TileSize)
                         },
                     };
@@ -210,8 +213,195 @@ namespace gta_1
                 return;
             }
 
+            if (tile.SptireType == "roof")
+                return;
+
             screen.DrawImage(tile.Sprite, tile.Bounds);
             return;
+        }
+
+        public static void RenderRoofs(Graphics screen)
+        {
+            for (int x = 0; x < WorldMapSize.X; x++)
+            {
+                for (int y = 0; y < WorldMapSize.Y; y++)
+                {
+                    if (WorldMap[x, y].SptireType != "roof")
+                        continue;
+
+                    Tile tile = new Tile(WorldMap[x, y])
+                    {
+                        Position = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
+                        Bounds = new Rectangle()
+                        {
+                            Location = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
+                            Size = new Size(Tools.TileSize, Tools.TileSize)
+                        },
+                    };
+
+                    RenderRoof(screen, tile);
+                }
+            }
+        }
+
+        private static void RenderRoof(Graphics screen, Tile tile)
+        {
+            if (tile.Sprite == null)
+            {
+                screen.FillRectangle(Brushes.Purple, tile.Bounds);
+                return;
+            }
+
+            if (tile.SptireType != "roof")
+                return;
+
+            Point distanceToPlatyer = new Point()
+            {
+                X = tile.Position.X - Tools.ScreenCentre.X,
+                Y = tile.Position.Y - Tools.ScreenCentre.Y
+            };
+
+            tile.Bounds = new Rectangle()
+            {
+                Location = new Point()
+                {
+                    X = tile.Position.X - Tools.TileSize / 2 + distanceToPlatyer.X,
+                    Y = tile.Position.Y - Tools.TileSize / 2 + distanceToPlatyer.Y
+                },
+                Size = new Size(2 * Tools.TileSize, 2 * Tools.TileSize)
+            };
+
+            screen.DrawImage(tile.Sprite, tile.Bounds);
+        }
+
+        public static void RenderWalls(Graphics screen)
+        {
+            for (int x = 0; x < WorldMapSize.X; x++)
+            {
+                for (int y = 0; y < WorldMapSize.Y; y++)
+                {
+                    if (WorldMap[x, y].SptireType != "roof")
+                        continue;
+
+                    Tile tile = new Tile(WorldMap[x, y])
+                    {
+                        Position = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
+                        Bounds = new Rectangle()
+                        {
+                            Location = Tools.GetPositionRelativeToPlayer(WorldMap[x, y].Position),
+                            Size = new Size(Tools.TileSize, Tools.TileSize)
+                        },
+                    };
+
+                    RenderWall(screen, tile);
+                }
+            }
+        }
+
+        private static void RenderWall(Graphics screen, Tile tile)
+        {
+            if (tile.Sprite == null)
+            {
+                screen.FillRectangle(Brushes.Purple, tile.Bounds);
+                return;
+            }
+
+            if (tile.SptireType != "roof")
+                return;
+
+            Point distanceToPlatyer = new Point()
+            {
+                X = tile.Position.X - Tools.ScreenCentre.X,
+                Y = tile.Position.Y - Tools.ScreenCentre.Y
+            };
+
+            tile.Bounds = new Rectangle()
+            {
+                Location = new Point()
+                {
+                    X = tile.Position.X - Tools.TileSize / 2 + distanceToPlatyer.X,
+                    Y = tile.Position.Y - Tools.TileSize / 2 + distanceToPlatyer.Y
+                },
+                Size = new Size(2 * Tools.TileSize, 2 * Tools.TileSize)
+            };
+
+            Brush wallsColor = Brushes.LightBlue;
+
+            if (WorldMap[tile.MapIndex.X, tile.MapIndex.Y - 1].Passable)
+            {
+                Point topRightPosition = new Point(tile.Position.X + Tools.TileSize, tile.Position.Y);
+                Point topRightBounds = new Point(tile.Bounds.Right, tile.Bounds.Top);
+
+                Point[] wallCorners = new Point[]
+                {
+                    tile.Position,
+                    tile.Bounds.Location,
+                    topRightBounds,
+                    topRightPosition
+                };
+
+                GraphicsPath wall = new GraphicsPath();
+                wall.AddPolygon(wallCorners);
+                screen.FillPath(wallsColor, wall);
+            }
+
+            if (WorldMap[tile.MapIndex.X, tile.MapIndex.Y + 1].Passable)
+            {
+                Point bottomRightPosition = new Point(tile.Position.X + Tools.TileSize, tile.Position.Y + Tools.TileSize);
+                Point bottomRightBounds = new Point(tile.Bounds.Right, tile.Bounds.Bottom);
+                Point bottomLeftPosition = new Point(tile.Position.X, tile.Position.Y + Tools.TileSize);
+                Point bottomLeftBounds = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
+
+                Point[] wallCorners = new Point[]
+                {
+                    bottomRightPosition,
+                    bottomRightBounds,
+                    bottomLeftBounds,
+                    bottomLeftPosition
+                };
+
+                GraphicsPath wall = new GraphicsPath();
+                wall.AddPolygon(wallCorners);
+                screen.FillPath(wallsColor, wall);
+            }
+
+            if (WorldMap[tile.MapIndex.X + 1, tile.MapIndex.Y].Passable)
+            {
+                Point topRightPosition = new Point(tile.Position.X + Tools.TileSize, tile.Position.Y);
+                Point topRightBounds = new Point(tile.Bounds.Right, tile.Bounds.Top);
+                Point bottomRightPosition = new Point(tile.Position.X + Tools.TileSize, tile.Position.Y + Tools.TileSize);
+                Point bottomRightBounds = new Point(tile.Bounds.Right, tile.Bounds.Bottom);
+
+                Point[] wallCorners = new Point[]
+                {
+                    topRightPosition,
+                    topRightBounds,
+                    bottomRightBounds,
+                    bottomRightPosition
+                };
+
+                GraphicsPath wall = new GraphicsPath();
+                wall.AddPolygon(wallCorners);
+                screen.FillPath(wallsColor, wall);
+            }
+
+            if (WorldMap[tile.MapIndex.X - 1, tile.MapIndex.Y].Passable)
+            {
+                Point bottomLeftPosition = new Point(tile.Position.X, tile.Position.Y + Tools.TileSize);
+                Point bottomLeftBounds = new Point(tile.Bounds.Left, tile.Bounds.Bottom);
+
+                Point[] wallCorners = new Point[]
+                {
+                    bottomLeftPosition,
+                    bottomLeftBounds,
+                    tile.Bounds.Location,
+                    tile.Position
+                };
+
+                GraphicsPath wall = new GraphicsPath();
+                wall.AddPolygon(wallCorners);
+                screen.FillPath(wallsColor, wall);
+            }
         }
 
         public static Tile RandomTile()
