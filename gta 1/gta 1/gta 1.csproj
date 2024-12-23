@@ -64,6 +64,11 @@
     <Compile Include="Entity\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tools.cs" />
     <Compile Include="Entity\Vehicle.cs" />
     <Compile Include="Weapon.cs" />
@@ -72,14 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,10 +94,133 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Player.png" />
+    <None Include="Resources\gta_map.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\gta_map.txt" />
+    <None Include="Resources\grass_edge_triple.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass_middle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass_corner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass_edge.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass_edge_double.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_edge.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_edge_end.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_middle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_middle_shadow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_corner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_corner_outside.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pavement_corner_shadow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_2_stop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_big.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_shadow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_snail.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_edge_stop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_middle_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_middle_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_middle_corner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_middle_shadow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_corner.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_corner_outside.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_corner_outside_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_corner_outside_alt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_corner_outside_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_edge_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_edge_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_edge_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_middle.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_corner_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_corner_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_corner_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\roof_corner_outside_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\water_3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\water_4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\water_1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\water_2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\road_middle.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

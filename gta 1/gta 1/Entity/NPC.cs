@@ -29,6 +29,7 @@ namespace gta_1
             Interactable = interactable;
 
             Position = position;
+            Destination = position;
             Bounds = new Rectangle(position, size);
         }
 

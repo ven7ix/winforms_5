@@ -61,31 +61,403 @@ namespace gta_1.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 20 20
-        ///XXXXXXXXXXXXXXXXXXXX
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X            X     X
-        ///X            X     X
-        ///X            X     X
-        ///X            X     X
-        ///X            X     X
-        ///X    XXXXXXXXX     X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///X                  X
-        ///XXXXXXXXXXXXXXXXXXXX.
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap grass_corner {
+            get {
+                object obj = ResourceManager.GetObject("grass_corner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap grass_edge {
+            get {
+                object obj = ResourceManager.GetObject("grass_edge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap grass_edge_double {
+            get {
+                object obj = ResourceManager.GetObject("grass_edge_double", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap grass_edge_triple {
+            get {
+                object obj = ResourceManager.GetObject("grass_edge_triple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap grass_middle {
+            get {
+                object obj = ResourceManager.GetObject("grass_middle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на XXXXXX___XXXXXXXXXXXXXRRRRRXXXXXXXXXXX
+        ///X___XX___XXX__________RRRRR__________X
+        ///X__PP+PPPPPPPPPPPPPP+_RRRRR__________X
+        ///X__PPPPPPPPPPP+PPPPPP_RRRRR__________X
+        ///X_________XXXXXXXXXPP_RRR*R__________X
+        ///X_________________XPP_RRRRR__________X
+        ///X_________XXX_____XPP_RRRRR__________X
+        ///X___________X_____XPP_RRRRR__________X
+        ///X___________X_____XPP_RRRRR____s_____X
+        ///X___________X_____XPP_RRRRR__________X
+        ///____________XXX__XX+P_RRRRR__________X
+        ///X_______PPPPPP+PPPPPP_RRR*R__________X
+        ///X_______P+PPPPPPPPPPP_RRRRR_____ [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string gta_map {
             get {
                 return ResourceManager.GetString("gta_map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_corner {
+            get {
+                object obj = ResourceManager.GetObject("pavement_corner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_corner_outside {
+            get {
+                object obj = ResourceManager.GetObject("pavement_corner_outside", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_corner_shadow {
+            get {
+                object obj = ResourceManager.GetObject("pavement_corner_shadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_edge {
+            get {
+                object obj = ResourceManager.GetObject("pavement_edge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_edge_end {
+            get {
+                object obj = ResourceManager.GetObject("pavement_edge_end", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_middle {
+            get {
+                object obj = ResourceManager.GetObject("pavement_middle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pavement_middle_shadow {
+            get {
+                object obj = ResourceManager.GetObject("pavement_middle_shadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_corner {
+            get {
+                object obj = ResourceManager.GetObject("road_corner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_corner_outside {
+            get {
+                object obj = ResourceManager.GetObject("road_corner_outside", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_corner_outside_3 {
+            get {
+                object obj = ResourceManager.GetObject("road_corner_outside_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_corner_outside_alt {
+            get {
+                object obj = ResourceManager.GetObject("road_corner_outside_alt", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge {
+            get {
+                object obj = ResourceManager.GetObject("road_edge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_2 {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_2_stop {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_2_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_3 {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_big {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_shadow {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_shadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_snail {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_snail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_edge_stop {
+            get {
+                object obj = ResourceManager.GetObject("road_edge_stop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_middle {
+            get {
+                object obj = ResourceManager.GetObject("road_middle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_middle_2 {
+            get {
+                object obj = ResourceManager.GetObject("road_middle_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_middle_3 {
+            get {
+                object obj = ResourceManager.GetObject("road_middle_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_middle_corner {
+            get {
+                object obj = ResourceManager.GetObject("road_middle_corner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap road_middle_shadow {
+            get {
+                object obj = ResourceManager.GetObject("road_middle_shadow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_corner_1 {
+            get {
+                object obj = ResourceManager.GetObject("roof_corner_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_corner_2 {
+            get {
+                object obj = ResourceManager.GetObject("roof_corner_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_corner_3 {
+            get {
+                object obj = ResourceManager.GetObject("roof_corner_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_corner_outside_2 {
+            get {
+                object obj = ResourceManager.GetObject("roof_corner_outside_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_corner_outside_3 {
+            get {
+                object obj = ResourceManager.GetObject("roof_corner_outside_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_edge_1 {
+            get {
+                object obj = ResourceManager.GetObject("roof_edge_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_edge_2 {
+            get {
+                object obj = ResourceManager.GetObject("roof_edge_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_edge_3 {
+            get {
+                object obj = ResourceManager.GetObject("roof_edge_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap roof_middle {
+            get {
+                object obj = ResourceManager.GetObject("roof_middle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

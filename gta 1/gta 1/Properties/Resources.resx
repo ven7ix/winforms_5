@@ -28,7 +28,7 @@
     </data>
                 
     There are any number of "resheader" rows that contain simple 
-    name/value Points.
+    name/value pairs.
     
     Each data row contains a name, and value. The row also contains a 
     type or mimetype. Type corresponds to a .NET class that support 
@@ -118,7 +118,121 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="grass_corner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass_corner.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass_edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass_edge.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass_edge_double" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass_edge_double.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass_edge_triple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass_edge_triple.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass_middle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass_middle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="gta_map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gta_map.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="pavement_corner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_corner.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_corner_outside" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_corner_outside.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_corner_shadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_corner_shadow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_edge.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_edge_end" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_edge_end.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_middle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_middle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pavement_middle_shadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pavement_middle_shadow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_corner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_corner.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_corner_outside" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_corner_outside.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_corner_outside_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_corner_outside_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_corner_outside_alt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_corner_outside_alt.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_2_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_2_stop.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_big" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_big.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_shadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_shadow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_snail" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_snail.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_edge_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_edge_stop.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_middle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_middle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_middle_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_middle_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_middle_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_middle_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_middle_corner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_middle_corner.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="road_middle_shadow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road_middle_shadow.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_corner_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_corner_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_corner_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_corner_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_corner_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_corner_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_corner_outside_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_corner_outside_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_corner_outside_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_corner_outside_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_edge_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_edge_1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_edge_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_edge_2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_edge_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_edge_3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="roof_middle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\roof_middle.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
