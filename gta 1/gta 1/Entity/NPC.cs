@@ -16,10 +16,17 @@ namespace gta_1
         public int Speed { get; set; }
         public bool Interactable { get; set; }
 
+        public Point MovingVector { get; set; }
+        public Point LastMovingVector { get; set; }
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
         private Point Destination { get; set; }
+
+        public Bitmap Sprite { get; set; }
+        public Bitmap[,] AnimationSprites { get; set; }
+        public int Frame { get; set; }
+        public int TimeElapsedSinceLastFrame { get; set; }
 
         public NPC(Point position, Size size, int maximumHP, int speedModifier, bool interactable)
         {
@@ -31,10 +38,17 @@ namespace gta_1
             Position = position;
             Destination = position;
             Bounds = new Rectangle(position, size);
+
+            Animation.SetAnimationSprites(this);
         }
 
         public void Move(Point moveDirection)
         {
+            MovingVector = moveDirection;
+
+            if (moveDirection == new Point(0, 0))
+                return;
+
             Point newPosition = new Point()
             {
                 X = Position.X + moveDirection.X * Speed,
@@ -45,7 +59,7 @@ namespace gta_1
             {
                 if (Math.Abs(moveDirection.X) + Math.Abs(moveDirection.Y) < 2)
                 {
-                    Destination = Map.RandomTile().Position;
+                    Destination = Tile.RandomTile().Position;
                     return;
                 }
 
@@ -55,7 +69,7 @@ namespace gta_1
                     newPosition = new Point(Position.X, Position.Y - moveDirection.Y * Speed);
                     if (MoveCollisionCheckObject(newPosition))
                     {
-                        Destination = Map.RandomTile().Position;
+                        Destination = Tile.RandomTile().Position;
                         return;
                     }
                 }
@@ -63,7 +77,7 @@ namespace gta_1
 
             if (MoveCollisionCheckEntity(newPosition))
             {
-                Destination = Map.RandomTile().Position;
+                Destination = Tile.RandomTile().Position;
                 return;
             }
 
@@ -79,7 +93,7 @@ namespace gta_1
             {
                 for (int y = 0; y < Map.WorldMapSize.Y; y++)
                 {
-                    Map.Tile tile = Map.WorldMap[x, y];
+                    Tile tile = Map.WorldMap[x, y];
 
                     if (!Map.Pavements[x, y])
                     {
@@ -129,7 +143,7 @@ namespace gta_1
         public void Wonder()
         {
             if (Position == Destination)
-                Destination = Map.RandomTile().Position;
+                Destination = Tile.RandomTile().Position;
 
             Point moveDirection = new Point()
             {
@@ -172,16 +186,24 @@ namespace gta_1
 
         public bool CheckIfDead()
         {
-            if (CurrentHP == 0)
-                return true;
+            return CurrentHP == 0;
+        }
 
-            return false;
+        public bool IsMoving(Point movingVector)
+        {
+            return !(movingVector.X == 0 && movingVector.Y == 0);
+        }
+
+        public bool IsMovingDiagonally(Point movingVector)
+        {
+            return Math.Abs(movingVector.X) + Math.Abs(movingVector.Y) == 2;
         }
 
         public void RenderEntity(Graphics screen)
         {
             //NPC
-            screen.FillRectangle(Brushes.Blue, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
+            Animation.AnimationHanler(this, 20);
+            screen.DrawImage(Sprite, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
         }
     }
 }

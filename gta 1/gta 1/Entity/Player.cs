@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,11 +23,19 @@ namespace gta_1
         public bool Interactable { get; set; }
         public Weapon EquippedWeapon { get; set; }
 
+        public Point MovingVector { get; set; }
+        public Point LastMovingVector { get; set; }
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
         public Rectangle MaxReachBounds { get; set; }
         public bool[,] PlayerRealReach { get; set; }
+
+        public Bitmap Sprite { get; set; }
+        public Bitmap[,] AnimationSprites { get; set; }
+        public int Frame { get; set; }
+        public int TimeElapsedSinceLastFrame { get; set; }
+
 
         public struct Weapon
         {
@@ -64,6 +73,8 @@ namespace gta_1
             };
 
             UpdateReach();
+
+            Animation.SetAnimationSprites(this);
         }
 
         public Player(Player playerToCopy)
@@ -79,10 +90,18 @@ namespace gta_1
             Bounds = playerToCopy.Bounds;
             MaxReachBounds = playerToCopy.MaxReachBounds;
             PlayerRealReach = playerToCopy.PlayerRealReach;
+
+            Sprite = playerToCopy.Sprite;
+            AnimationSprites = playerToCopy.AnimationSprites;
         }
 
         public void Move(Point moveDirection)
         {
+            MovingVector = moveDirection;
+
+            if (moveDirection == new Point(0, 0))
+                return;
+
             Point newPosition = new Point()
             {
                 X = Position.X + moveDirection.X * Speed,
@@ -129,7 +148,7 @@ namespace gta_1
             {
                 for (int y = 0; y < Map.WorldMapSize.Y; y++)
                 {
-                    Map.Tile tile = Map.WorldMap[x, y];
+                    Tile tile = Map.WorldMap[x, y];
 
                     if (!tile.Passable)
                     {
@@ -229,7 +248,7 @@ namespace gta_1
                 for (int y = 0; y < Map.WorldMapSize.Y; y++)
                 {
                     PlayerRealReach[x, y] = false;
-                    Map.Tile tile = Map.WorldMap[x, y];
+                    Tile tile = Map.WorldMap[x, y];
 
                     if (alwayerReachable.Contains(tile.Position))
                     {
@@ -313,10 +332,17 @@ namespace gta_1
 
         public bool CheckIfDead()
         {
-            if (CurrentHP == 0)
-                return true;
+            return CurrentHP == 0;
+        }
 
-            return false;
+        public bool IsMoving(Point movingVector)
+        {
+            return !(movingVector.X == 0 && movingVector.Y == 0);
+        }
+
+        public bool IsMovingDiagonally(Point movingVector)
+        {
+            return Math.Abs(movingVector.X) + Math.Abs(movingVector.Y) == 2;
         }
 
         public void RenderEntity(Graphics screen)
@@ -335,7 +361,8 @@ namespace gta_1
             screen.DrawLine(Pens.Black, new Point(Tools.ScreenCentre.X + Bounds.Width / 2, Tools.ScreenCentre.Y + Bounds.Height / 2), LookingDirection);
 
             //Player
-            screen.FillRectangle(Brushes.Black, new Rectangle(Tools.ScreenCentre, Bounds.Size));
+            Animation.AnimationHanler(this, 20);
+            screen.DrawImage(Sprite, new Rectangle(Tools.ScreenCentre, Bounds.Size));
         }
     }
 }

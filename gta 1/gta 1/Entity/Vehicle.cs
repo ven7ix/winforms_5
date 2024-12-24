@@ -16,9 +16,16 @@ namespace gta_1
         public bool Interactable { get; set; }
         public Player PlayerInside { get; set; }
 
+        public Point MovingVector { get; set; }
+        public Point LastMovingVector { get; set; }
         public Point Position { get; set; }
         public Point LookingDirection { get; set; }
         public Rectangle Bounds { get; set; }
+
+        public Bitmap Sprite { get; set; }
+        public Bitmap[,] AnimationSprites { get; set; }
+        public int Frame { get; set; }
+        public int TimeElapsedSinceLastFrame { get; set; }
 
         public Vehicle(Point position, Size size, int maximumHP, int speedModifier, bool interactable)
         {
@@ -29,10 +36,17 @@ namespace gta_1
 
             Position = position;
             Bounds = new Rectangle(position, size);
+
+            Animation.SetAnimationSprites(this);
         }
 
         public void Move(Point moveDirection)
         {
+            MovingVector = moveDirection;
+
+            if (moveDirection == new Point(0, 0))
+                return;
+
             Point newPosition = new Point()
             {
                 X = Position.X + moveDirection.X * Speed,
@@ -70,7 +84,7 @@ namespace gta_1
             {
                 for (int y = 0; y < Map.WorldMapSize.Y; y++)
                 {
-                    Map.Tile tile = Map.WorldMap[x, y];
+                    Tile tile = Map.WorldMap[x, y];
 
                     if (!tile.Passable)
                     {
@@ -195,16 +209,24 @@ namespace gta_1
 
         public bool CheckIfDead()
         {
-            if (CurrentHP == 0)
-                return true;
+            return CurrentHP == 0;
+        }
 
-            return false;
+        public bool IsMoving(Point movingVector)
+        {
+            return !(movingVector.X == 0 && movingVector.Y == 0);
+        }
+
+        public bool IsMovingDiagonally(Point movingVector)
+        {
+            return Math.Abs(movingVector.X) + Math.Abs(movingVector.Y) == 2;
         }
 
         public void RenderEntity(Graphics screen)
         {
             //Vehicle
-            screen.FillRectangle(Brushes.Green, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
+            Animation.AnimationHanler(this, 20);
+            screen.DrawImage(Sprite, new Rectangle(Tools.GetPositionRelativeToPlayer(Position), Bounds.Size));
         }
     }
 }

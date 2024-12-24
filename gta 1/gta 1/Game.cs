@@ -23,7 +23,7 @@ namespace gta_1
         {
             InitializeComponent();
 
-            Tools.Initialize(48, new Point(Screen.Width, Screen.Height));
+            Tools.Initialize(64, new Point(Screen.Width, Screen.Height));
 
             Map.LoadMapFromFile();
 
@@ -35,6 +35,12 @@ namespace gta_1
         private void TimerGameLoop_Tick(object sender, EventArgs e)
         {
             CheckMovementKeys();
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i].CheckIfDead())
+                    entities.RemoveAt(i--);
+            }
 
             foreach (IEntity entity in entities)
             {
@@ -57,6 +63,9 @@ namespace gta_1
         {
             if (e.KeyCode == Keys.E)
             {
+                if (player.IsMoving(player.MovingVector))
+                    return;
+
                 foreach (IEntity entity in entities)
                     player = entity.Interact(player);
 
@@ -108,10 +117,17 @@ namespace gta_1
             {
                 player.Move(new Point(1, 0));
             }
+            else
+            {
+                player.Move(new Point(0, 0));
+            }
         }
 
         private void Screen_MouseClick(object sender, MouseEventArgs e)
         {
+            if (player.IsMoving(player.MovingVector))
+                return;
+
             foreach (IEntity entity in entities)
             {
                 if (player is Player)
@@ -125,22 +141,17 @@ namespace gta_1
 
             Map.RenderTiles(screen);
 
-            for (int i = 0; i < entities.Count; i++)
-            {
-                if (entities[i].CheckIfDead())
-                {
-                    entities.Remove(entities[i--]);
-                    continue;
-                }
-
-                entities[i].RenderEntity(screen);
-            }
+            foreach (IEntity entity in entities)
+                entity.RenderEntity(screen);
 
             Map.RenderWalls(screen);
 
-            player.RenderEntity(screen);
-
             Map.RenderRoofs(screen);
+        }
+
+        private void Game_Resize(object sender, EventArgs e)
+        {
+            Tools.UpdateScreenSize(new Point(Screen.Width, Screen.Height));
         }
     }
 }
